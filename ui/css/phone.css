@@ -1,0 +1,361 @@
+/* phone.css - Estilos do frame do celular */
+
+/* Container do telefone */
+.phone-container {
+    width: 300px;
+    height: 600px;
+    position: relative;
+    margin-right: 50px;
+}
+
+/* Frame do iPhone */
+.phone-frame {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 42px;
+    background-color: #0a0a16;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(106, 58, 196, 0.8),
+                0 0 60px rgba(92, 58, 204, 0.4),
+                0 0 90px rgba(140, 92, 245, 0.2);
+    border: 3px solid #2a1c4a;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Fundo de galáxia */
+.phone-frame::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 30% 70%, rgba(140, 92, 245, 0.2), transparent 20%),
+        radial-gradient(circle at 70% 30%, rgba(92, 58, 204, 0.2), transparent 25%),
+        radial-gradient(circle at 50% 50%, rgba(106, 58, 196, 0.3), transparent 50%),
+        url('../img/galaxy-bg.svg');
+    background-size: cover;
+    opacity: 0.6;
+    z-index: 0;
+}
+
+/* Dots que simulam estrelas */
+.phone-frame::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 10% 20%, white 1px, transparent 1px),
+        radial-gradient(circle at 30% 40%, white 1px, transparent 1px),
+        radial-gradient(circle at 50% 10%, white 1px, transparent 1px),
+        radial-gradient(circle at 70% 30%, white 1px, transparent 1px),
+        radial-gradient(circle at 90% 60%, white 1px, transparent 1px),
+        radial-gradient(circle at 20% 80%, white 1px, transparent 1px),
+        radial-gradient(circle at 40% 60%, white 1px, transparent 1px),
+        radial-gradient(circle at 60% 90%, white 1px, transparent 1px),
+        radial-gradient(circle at 80% 20%, white 1px, transparent 1px),
+        radial-gradient(circle at 95% 85%, white 1px, transparent 1px);
+    z-index: 1;
+}
+
+/* Conteúdo do telefone */
+.phone-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+/* Status bar */
+.status-bar {
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
+    color: var(--text-color);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.status-icons i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Conteúdo principal */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Header do app */
+.app-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo img {
+    width: 30px;
+    height: 30px;
+}
+
+.logo h1 {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Área de conteúdo */
+.content-area {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Navigation bar */
+.nav-bar {
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(10, 10, 22, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 5px;
+    gap: 2px;
+}
+
+.nav-item i {
+    width: 18px;
+    height: 18px;
+}
+
+.nav-item span {
+    font-size: 0.7rem;
+}
+
+.nav-item.active {
+    color: var(--primary-color);
+}
+
+/* Tela de boas-vindas */
+.welcome-area {
+    padding: 15px 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.welcome-area h2 {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.welcome-area p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Tela de busca */
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input-group {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: var(--background-light);
+    border-radius: 8px;
+    padding: 0 10px;
+}
+
+.search-input-group i {
+    color: var(--text-secondary);
+    margin-right: 5px;
+}
+
+#search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    padding: 8px 0;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Playlists recentes (horizontal) */
+.playlist-card-horizontal {
+    min-width: 120px;
+    background-color: rgba(30, 30, 66, 0.6);
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.playlist-card-horizontal:hover {
+    background-color: rgba(30, 30, 66, 0.9);
+}
+
+.playlist-card-horizontal .playlist-cover {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.playlist-card-horizontal .playlist-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.playlist-card-horizontal .playlist-name {
+    color: var(--text-color);
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+/* Playlist header */
+.playlist-header {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.playlist-header .playlist-cover {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.playlist-header .playlist-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.playlist-header .playlist-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.playlist-header .playlist-info h2 {
+    color: var(--text-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.playlist-header .playlist-info p {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+}
+
+.playlist-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+/* Playlist selection for modal */
+.playlist-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.playlist-select-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--background-light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.playlist-select-item:hover {
+    background-color: var(--primary-dark);
+}
+
+.playlist-select-item .playlist-mini-cover {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.playlist-select-item .playlist-mini-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.playlist-select-item .playlist-mini-info {
+    flex: 1;
+}
+
+.playlist-select-item .playlist-mini-name {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.playlist-select-item .playlist-mini-details {
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+}

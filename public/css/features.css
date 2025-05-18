@@ -1,0 +1,747 @@
+/**
+ * Tokyo Box Enhanced Features Stylesheet
+ * Styles for virtual Bluetooth, 3D audio effects, and group sessions
+ */
+
+/* ===== Common Styles ===== */
+.screen {
+    display: none;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.screen.active {
+    display: block;
+}
+
+.screen-header {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.screen-header h2 {
+    margin: 0;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.screen-header h2 i {
+    margin-right: 8px;
+}
+
+.screen-content {
+    padding: 15px;
+}
+
+.divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 15px 0;
+}
+
+.divider-text {
+    text-align: center;
+    margin: 15px 0;
+    color: rgba(255, 255, 255, 0.5);
+    position: relative;
+}
+
+.divider-text::before,
+.divider-text::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.divider-text::before {
+    left: 0;
+}
+
+.divider-text::after {
+    right: 0;
+}
+
+/* Toggle switches */
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #333;
+    border-radius: 20px;
+    transition: .3s;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+input:checked + .toggle-slider {
+    background-color: #5d38f9;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+}
+
+input:disabled + .toggle-slider {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Setting rows */
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.setting-row input[type="range"] {
+    flex: 1;
+    margin: 0 10px;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: #5d38f9;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Notification system */
+#notification-container {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    max-width: 300px;
+    z-index: 1000;
+}
+
+.notification {
+    display: flex;
+    background-color: #1a1a1a;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.notification.closing {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.notification.error {
+    border-left: 3px solid #f93838;
+}
+
+.notification.success {
+    border-left: 3px solid #38f975;
+}
+
+.notification.info {
+    border-left: 3px solid #3885f9;
+}
+
+.notification-icon {
+    margin-right: 10px;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.notification-message {
+    font-size: 12px;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+}
+
+/* ===== Bluetooth Screen Styles ===== */
+.devices-section {
+    margin-top: 20px;
+}
+
+.device-list {
+    margin-top: 10px;
+}
+
+.device-item {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.device-icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.device-info {
+    flex: 1;
+}
+
+.device-name {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.device-meta {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.device-meta span {
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.device-meta i {
+    margin-right: 2px;
+}
+
+.device-actions {
+    margin-left: 10px;
+}
+
+.empty-list-message {
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 20px;
+}
+
+/* Bluetooth overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay.hidden {
+    display: none;
+}
+
+.overlay-content {
+    background-color: #1a1a1a;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.overlay-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.overlay-header h3 {
+    margin: 0;
+}
+
+.overlay-body {
+    padding: 20px;
+}
+
+.device-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.overlay .device-icon {
+    margin: 0 auto 10px auto;
+    width: 60px;
+    height: 60px;
+}
+
+.connection-status {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.connection-status.success {
+    color: #38f975;
+}
+
+.connection-status.error {
+    color: #f93838;
+}
+
+.connection-progress {
+    margin: 20px 0;
+}
+
+.progress-bar {
+    background-color: rgba(255, 255, 255, 0.1);
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-indicator {
+    background-color: #5d38f9;
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.overlay-footer {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Equalizer Screen Styles ===== */
+.equalizer-section {
+    margin-bottom: 20px;
+}
+
+.preset-selector {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.preset-selector select {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.eq-bands {
+    display: flex;
+    justify-content: space-between;
+    height: 180px;
+    margin-top: 10px;
+}
+
+.eq-band {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.band-slider {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.eq-slider {
+    width: 150px;
+    height: 4px;
+    transform: rotate(-90deg) translateX(-73px) translateY(8px);
+    transform-origin: top left;
+}
+
+.band-value {
+    position: absolute;
+    top: -20px;
+    font-size: 10px;
+    width: 30px;
+    text-align: center;
+}
+
+.band-freq {
+    margin-top: 8px;
+    font-size: 10px;
+}
+
+.spatial-audio-section {
+    margin-top: 20px;
+}
+
+.position-control {
+    margin-top: 20px;
+}
+
+.position-visualizer {
+    width: 100%;
+    height: 180px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.position-marker {
+    width: 20px;
+    height: 20px;
+    background-color: #5d38f9;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: move;
+}
+
+.position-listener {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ===== Group Session Screen Styles ===== */
+.session-controls {
+    margin-bottom: 20px;
+}
+
+#create-session {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.join-section {
+    display: flex;
+    align-items: center;
+}
+
+.join-section input {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.session-info {
+    margin-bottom: 15px;
+}
+
+.session-code-display {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin: 0 10px;
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+
+.session-role {
+    margin: 15px 0;
+}
+
+#leave-session {
+    margin-top: 15px;
+}
+
+.session-members {
+    margin-bottom: 20px;
+}
+
+.members-list {
+    margin-top: 10px;
+}
+
+.member-item {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.member-icon {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.member-info {
+    flex: 1;
+}
+
+.member-name {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.member-device {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.member-role {
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.member-role.host {
+    background-color: #f9a638;
+    color: #000;
+}
+
+.member-role.dj {
+    background-color: #3885f9;
+    color: #fff;
+}
+
+.member-role.listener {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.session-chat {
+    margin-top: 20px;
+}
+
+.chat-messages {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+}
+
+.chat-input input {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.system-message {
+    text-align: center;
+    padding: 5px 10px;
+    margin: 5px 0;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.user-message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 8px 0;
+}
+
+.user-message .message-content {
+    background-color: #5d38f9;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 15px 15px 0 15px;
+    max-width: 80%;
+}
+
+.member-message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 8px 0;
+}
+
+.message-sender {
+    font-size: 11px;
+    margin-bottom: 2px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.member-message .message-content {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 15px 15px 15px 0;
+    max-width: 80%;
+}
+
+.message-timestamp {
+    font-size: 9px;
+    margin-top: 2px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Button styles */
+.btn {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.btn i {
+    margin-right: 5px;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn-primary {
+    background-color: #5d38f9;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-danger {
+    background-color: #f93838;
+    color: white;
+}
+
+.btn-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 0;
+}
+
+.btn-icon:hover {
+    opacity: 1;
+}
+
+/* Media Queries for responsive design */
+@media (max-width: 320px) {
+    .eq-bands {
+        height: 150px;
+    }
+    
+    .band-slider {
+        height: 120px;
+    }
+    
+    .eq-slider {
+        width: 120px;
+        transform: rotate(-90deg) translateX(-58px) translateY(8px);
+    }
+    
+    .position-visualizer {
+        height: 150px;
+    }
+    
+    .chat-messages {
+        height: 150px;
+    }
+}
+
+/* Fix for close buttons */
+#close-app {
+    cursor: pointer;
+}
+
+.btn-icon#close-app:hover {
+    color: #f93838;
+}

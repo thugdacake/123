@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 336 100% 65%;  /* Tokyo Pink */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 270 100% 68%; /* Tokyo Purple */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 60 4.8% 95.9%;
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+  --chart-1: 336 100% 65%;
+  --chart-2: 270 100% 68%;
+
+  /* Tokyo specific */
+  --tokyo-pink: 336 100% 65%;
+  --tokyo-purple: 270 100% 68%;
+  --tokyo-dark: 0 0% 7%;
+  --tokyo-darkElevated: 0 0% 12%;
+  --tokyo-darkHighlight: 0 0% 16%;
+  --tokyo-light: 0 0% 96%;
+  --tokyo-lightElevated: 0 0% 100%;
+  --tokyo-lightHighlight: 0 0% 94%;
+  --tokyo-success: 142 70% 49%;
+  --tokyo-error: 0 76% 64%;
+  --tokyo-warning: 45 100% 64%;
+}
+
+.dark {
+  --background: 0 0% 7%;  /* Tokyo dark */
+  --foreground: 0 0% 98%;
+  --muted: 0 0% 16%;  /* Tokyo darkHighlight */
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 0 0% 12%;  /* Tokyo darkElevated */
+  --popover-foreground: 0 0% 98%;
+  --card: 0 0% 12%;  /* Tokyo darkElevated */
+  --card-foreground: 0 0% 98%;
+  --border: 0 0% 16%;  /* Tokyo darkHighlight */
+  --input: 0 0% 16%;  /* Tokyo darkHighlight */
+  --primary: 336 100% 65%;  /* Tokyo Pink */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 270 100% 68%;  /* Tokyo Purple */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 0 0% 16%;  /* Tokyo darkHighlight */
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 336 100% 65%;  /* Tokyo Pink */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* App-specific animations */
+@keyframes waveform {
+  0% { height: 10%; }
+  50% { height: 80%; }
+  100% { height: 10%; }
+}
+
+.waveform-bar {
+  animation: waveform 1.5s ease-in-out infinite;
+}
+
+.waveform-bar:nth-child(1) { animation-delay: -0.2s; }
+.waveform-bar:nth-child(2) { animation-delay: -0.4s; }
+.waveform-bar:nth-child(3) { animation-delay: -0.6s; }
+.waveform-bar:nth-child(4) { animation-delay: -0.8s; }
+.waveform-bar:nth-child(5) { animation-delay: -1.0s; }
+.waveform-bar:nth-child(6) { animation-delay: -1.2s; }
+.waveform-bar:nth-child(7) { animation-delay: -1.4s; }
+.waveform-bar:nth-child(8) { animation-delay: -1.6s; }
+.waveform-bar:nth-child(9) { animation-delay: -1.8s; }
+.waveform-bar:nth-child(10) { animation-delay: -2.0s; }
+
+/* Range input styles */
+input[type=range] {
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: hsl(var(--muted));
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+/* Utility classes for Tokyo Box */
+.bg-tokyo-dark {
+  background-color: hsl(var(--tokyo-dark));
+}
+
+.bg-tokyo-darkElevated {
+  background-color: hsl(var(--tokyo-darkElevated));
+}
+
+.bg-tokyo-darkHighlight {
+  background-color: hsl(var(--tokyo-darkHighlight));
+}
+
+.bg-tokyo-light {
+  background-color: hsl(var(--tokyo-light));
+}
+
+.bg-tokyo-lightElevated {
+  background-color: hsl(var(--tokyo-lightElevated));
+}
+
+.bg-tokyo-lightHighlight {
+  background-color: hsl(var(--tokyo-lightHighlight));
+}
+
+.bg-tokyo-pink {
+  background-color: hsl(var(--tokyo-pink));
+}
+
+.bg-tokyo-purple {
+  background-color: hsl(var(--tokyo-purple));
+}
+
+.text-tokyo-pink {
+  color: hsl(var(--tokyo-pink));
+}
+
+.text-tokyo-purple {
+  color: hsl(var(--tokyo-purple));
+}
+
+.text-tokyo-success {
+  color: hsl(var(--tokyo-success));
+}
+
+.text-tokyo-error {
+  color: hsl(var(--tokyo-error));
+}
+
+.text-tokyo-warning {
+  color: hsl(var(--tokyo-warning));
+}
+
+.border-tokyo-darkHighlight {
+  border-color: hsl(var(--tokyo-darkHighlight));
+}
+
+.from-tokyo-pink {
+  --tw-gradient-from: hsl(var(--tokyo-pink)) var(--tw-gradient-from-position);
+  --tw-gradient-to: hsl(var(--tokyo-pink) / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.to-tokyo-purple {
+  --tw-gradient-to: hsl(var(--tokyo-purple)) var(--tw-gradient-to-position);
+}
